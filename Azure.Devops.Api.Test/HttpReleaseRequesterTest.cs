@@ -26,5 +26,13 @@ namespace Azure.Devops.Api.Test
             var result = await _releaseRequester.GetReleases();
             Assert.IsTrue(result.Value.Count > 0); ;
         }
+
+        [TestMethod]
+        public async Task UpdateRelease()
+        {
+            var result = await _releaseRequester.GetReleaseById(1);
+            result.Variables.Add(Guid.NewGuid().ToString(), new Models.VariableValue { Value = Guid.NewGuid().ToString() });
+            var response = await _releaseRequester.UpdateRelease(result);
+        }
     }
 }

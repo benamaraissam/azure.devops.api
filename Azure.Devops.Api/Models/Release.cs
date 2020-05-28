@@ -12,7 +12,7 @@ namespace Azure.Devops.Api.Models
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        //[JsonProperty("variables")]
-        //public Dictionary<string, VariableValue> Variables { get; set; }
+        [JsonProperty("variables")]
+        public Dictionary<string, VariableValue> Variables { get; set; }
     }
 }
