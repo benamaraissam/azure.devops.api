@@ -29,7 +29,7 @@ namespace Azure.Devops.Api.Requesters
 
         public async Task<List<Release>> GetReleases()
         {
-            return await _client.GetReleasesAsync(Credentials.PROJECT);
+            return await _client.GetReleasesAsync(Credentials.PROJECT) ;
         }
 
 

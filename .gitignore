@@ -2,3 +2,5 @@
 /Azure.Devops.Api.Test/obj/
 /Azure.Devops.Api/bin/
 /Azure.Devops.Api/obj/
+/packages/
+/.vs/Azure.Devops.Api/v16/
