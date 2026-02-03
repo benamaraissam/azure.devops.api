@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Azure.Devops.Api.Requesters;
+using Azure.Devops.Api.Test;
 using Microsoft.TeamFoundation.DistributedTask.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,6 +11,13 @@ namespace Azure.Devops.Api.Test
     public class DistributedTaskRequesterTest
     {
         private readonly DistributedTaskRequester _distributedTask = new DistributedTaskRequester();
+
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            // Validate environment variables before running tests
+            TestCredentials.ValidateEnvironmentVariables();
+        }
 
         [TestMethod]
         public async Task GetVariableGroups()
@@ -32,8 +40,8 @@ namespace Azure.Devops.Api.Test
             return new VariableGroup
             {
                 Id = id,
-                Name = Guid.NewGuid().ToString(),
-                Description = Guid.NewGuid().ToString(),
+                Name = $"Test_{Guid.NewGuid():N}",
+                Description = $"Test description {Guid.NewGuid():N}",
                 Variables = new System.Collections.Generic.Dictionary<string, VariableValue>
                 {
                     {
