@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Azure.Devops.Api.Requesters;
+using Azure.Devops.Api.Test;
 using Microsoft.VisualStudio.Services.ReleaseManagement.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -11,6 +12,13 @@ namespace Azure.Devops.Api.Test
     {
 
         private readonly ReleaseRequester _releaseRequester = new ReleaseRequester();
+
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            // Validate environment variables before running tests
+            TestCredentials.ValidateEnvironmentVariables();
+        }
 
         [TestMethod]
         public async Task GetReleases()
@@ -30,8 +38,8 @@ namespace Azure.Devops.Api.Test
 
         private string UpdateItem(Release release)
         {
-            var key = Guid.NewGuid().ToString();
-            release.Variables.Add(key, new ConfigurationVariableValue { Value = Guid.NewGuid().ToString() });
+            var key = $"TestVar_{Guid.NewGuid():N}";
+            release.Variables.Add(key, new ConfigurationVariableValue { Value = $"TestValue_{Guid.NewGuid():N}" });
             return key;
         }
     }

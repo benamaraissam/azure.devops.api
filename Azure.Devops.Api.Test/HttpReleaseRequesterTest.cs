@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Azure.Devops.Api.Legacy;
-using Azure.Devops.Api.Requesters;
+using Azure.Devops.Api.Test;
 using Microsoft.VisualStudio.Services.ReleaseManagement.WebApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,6 +12,13 @@ namespace Azure.Devops.Api.Test
     {
 
         private readonly HttpReleaseRequester _releaseRequester = new HttpReleaseRequester();
+
+        [ClassInitialize]
+        public static void ClassInit(TestContext context)
+        {
+            // Validate environment variables before running tests
+            TestCredentials.ValidateEnvironmentVariables();
+        }
 
         [TestMethod]
         public async Task GetReleaseById()
